@@ -9,9 +9,15 @@ import image404 from "../assets/404.png";
 interface ArticleCardProps {
   article: Article;
 }
+const options: Intl.DateTimeFormatOptions = {
+  weekday: 'long',
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+};
+
 
 const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => (
-  
   /**
    * This component renders a single article. It takes as input an article object.
    * You should read the Antd documentation to figure out how to build this.
@@ -39,9 +45,10 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => (
         hoverable
       title={
         <div>
-          {article.title} 
-          <Typography> {new Date(article.published_at).toLocaleDateString()} </Typography>
-        </div>}  
+          {article.title}
+        </div> 
+      }
+      extra = {<Typography> {(new Date(article.published_at).toLocaleDateString('en-US', options))} </Typography>}
       cover = {<img src = {article.image_url} alt = {article.title} onError = {(e: React.SyntheticEvent<HTMLImageElement>) => {
         const target = e.target as HTMLImageElement;
         target.onerror = null;
